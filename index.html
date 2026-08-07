@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Real Hourly Rate Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Real Hourly Rate Calculator</h1>
+
+    <label for="salary">Gross annual salary (€)</label>
+    <input type="number" id="salary">
+
+    <label for="hours">Contracted hours per week</label>
+    <input type="number" id="hours">
+
+    <label for="overtime">Unpaid overtime hours per week</label>
+    <input type="number" id="overtime">
+
+    <label for="commute">Commute minutes per day (round trip)</label>
+    <input type="number" id="commute">
+
+    <label for="leave">Paid leave days per year</label>
+    <input type="number" id="leave">
+
+    <button id="calcBtn">Calculate</button>
+
+    <div id="result"></div>
+
+    <script src="app.js"></script>
+
+
+</body>
