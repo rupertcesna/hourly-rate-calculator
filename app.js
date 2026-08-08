@@ -21,4 +21,9 @@ function calculate() {
     resultDiv.textContent="Your real hourly rate: €"+realRate.toFixed(2);
 }
 
+if (salary <= 0 || hours <= 0) {
+  resultDiv.textContent = "Enter your salary and weekly hours.";
+  return;
+}
+
 calcBtn.addEventListener("click", calculate);
