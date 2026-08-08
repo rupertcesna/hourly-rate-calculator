@@ -7,23 +7,23 @@ const calcBtn=document.getElementById("calcBtn");
 const resultDiv=document.getElementById("result");
 
 function calculate() {
-    const salary=Number(salaryInput.value);
-    const hours=Number(hoursInput.value);
-    const overtime=Number(overtimeInput.value);
-    const commute=Number(commuteInput.value);
-    const leave=Number(leaveInput.value);
+    const salary = Number(salaryInput.value);
+    const hours = Number(hoursInput.value);
+    const overtime = Number(overtimeInput.value);
+    const commute = Number(commuteInput.value);
+    const leave = Number(leaveInput.value);
 
-    const workingWeeks=52 - (leave / 5);
-    const weeklyHours=hours+overtime+(commute * 5 / 60);
-    const totalHours=weeklyHours * workingWeeks;
-    const realRate=salary / totalHours;
+    if (salary <= 0 || hours <= 0) {
+        resultDiv.textContent = "Enter your salary and weekly hours.";
+        return;
+    }
 
-    resultDiv.textContent="Your real hourly rate: €"+realRate.toFixed(2);
-}
+    const workingWeeks = 52 - (leave / 5);
+    const weeklyHours = hours + overtime + (commute * 5 / 60);
+    const totalHours = weeklyHours * workingWeeks;
+    const realRate = salary / totalHours;
 
-if (salary <= 0 || hours <= 0) {
-  resultDiv.textContent = "Enter your salary and weekly hours.";
-  return;
+    resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
 }
 
 calcBtn.addEventListener("click", calculate);
