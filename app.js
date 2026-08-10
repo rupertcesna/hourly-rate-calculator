@@ -29,7 +29,7 @@ function calculate() {
     resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
 
     saveInputs();
-        updateURL(salary, hours, overtime, commute, leave);
+    updateURL(salary, hours, overtime, commute, leave);
 
 
 }
@@ -59,7 +59,11 @@ function loadInputs() {
     leaveInput.value = data.leave;
 }
 
-loadInputs();
+if (loadFromURL()) {
+    calculate();
+} else {
+    loadInputs();
+}
 
 function updateURL(salary, hours, overtime, commute, leave) {
     const params = new URLSearchParams({
@@ -71,3 +75,16 @@ function updateURL(salary, hours, overtime, commute, leave) {
     });
     history.replaceState(null, "", "?" + params.toString());
 }
+
+function loadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("salary")) return false;
+
+    salaryInput.value = params.get("salary");
+    hoursInput.value = params.get("hours");
+    overtimeInput.value = params.get("overtime");
+    commuteInput.value = params.get("commute");
+    leaveInput.value = params.get("leave");
+    return true;
+}
+
