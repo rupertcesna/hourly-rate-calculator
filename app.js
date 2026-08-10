@@ -6,6 +6,13 @@ const leaveInput=document.getElementById("leave");
 const calcBtn=document.getElementById("calcBtn");
 const resultDiv=document.getElementById("result");
 
+function computeRate(salary, hours, overtime, commute, leave) {
+    const workingWeeks = 52 - (leave / 5);
+    const weeklyHours = hours + overtime + (commute * 5 / 60);
+    const totalHours = weeklyHours * workingWeeks;
+    return salary / totalHours;
+}
+
 function calculate() {
     const salary = Number(salaryInput.value);
     const hours = Number(hoursInput.value);
@@ -18,11 +25,7 @@ function calculate() {
         return;
     }
 
-    const workingWeeks = 52 - (leave / 5);
-    const weeklyHours = hours + overtime + (commute * 5 / 60);
-    const totalHours = weeklyHours * workingWeeks;
-    const realRate = salary / totalHours;
-
+    const realRate = computeRate(salary, hours, overtime, commute, leave);
     resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
 }
 
