@@ -27,6 +27,21 @@ function calculate() {
 
     const realRate = computeRate(salary, hours, overtime, commute, leave);
     resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
+
+    saveInputs();
+
 }
 
-calcBtn.addEventListener("click", calculate);
+calcBtn.addEventListener("click", calculate); 
+
+function saveInputs() {
+    const data = {
+        salary: salaryInput.value,
+        hours: hoursInput.value,
+        overtime: overtimeInput.value,
+        commute: commuteInput.value,
+        leave: leaveInput.value
+    };
+    localStorage.setItem("rateInputs", JSON.stringify(data));
+}
+
