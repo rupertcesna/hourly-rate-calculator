@@ -29,6 +29,8 @@ function calculate() {
     resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
 
     saveInputs();
+        updateURL(salary, hours, overtime, commute, leave);
+
 
 }
 
@@ -58,3 +60,14 @@ function loadInputs() {
 }
 
 loadInputs();
+
+function updateURL(salary, hours, overtime, commute, leave) {
+    const params = new URLSearchParams({
+        salary: salary,
+        hours: hours,
+        overtime: overtime,
+        commute: commute,
+        leave: leave
+    });
+    history.replaceState(null, "", "?" + params.toString());
+}
