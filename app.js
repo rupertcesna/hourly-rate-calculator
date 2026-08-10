@@ -1,3 +1,8 @@
+const SUPABASE_URL = "https://lgzfumbzntwrkkpigszu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Tt0orymTSDgsKAqU6ykZ2g_l3QDYdZq";
+
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 const salaryInput=document.getElementById("salary");
 const hoursInput=document.getElementById("hours");
 const overtimeInput=document.getElementById("overtime");
