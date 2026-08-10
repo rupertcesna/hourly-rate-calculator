@@ -45,3 +45,16 @@ function saveInputs() {
     localStorage.setItem("rateInputs", JSON.stringify(data));
 }
 
+function loadInputs() {
+    const saved = localStorage.getItem("rateInputs");
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+    salaryInput.value = data.salary;
+    hoursInput.value = data.hours;
+    overtimeInput.value = data.overtime;
+    commuteInput.value = data.commute;
+    leaveInput.value = data.leave;
+}
+
+loadInputs();
