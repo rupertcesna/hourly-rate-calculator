@@ -36,6 +36,8 @@ function calculate() {
     saveInputs();
     updateURL(salary, hours, overtime, commute, leave);
 
+    saveToDatabase(salary, hours, overtime, commute, leave, realRate);
+
 
 }
 
@@ -64,11 +66,6 @@ function loadInputs() {
     leaveInput.value = data.leave;
 }
 
-if (loadFromURL()) {
-    calculate();
-} else {
-    loadInputs();
-}
 
 function updateURL(salary, hours, overtime, commute, leave) {
     const params = new URLSearchParams({
@@ -92,4 +89,31 @@ function loadFromURL() {
     leaveInput.value = params.get("leave");
     return true;
 }
+
+async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
+    const { data, error } = await db
+        .from("calculations")
+        .insert({
+            salary: salary,
+            hours: hours,
+            overtime: overtime,
+            commute: commute,
+            leave: leave,
+            rate: rate
+        });
+
+    if (error) {
+        console.log("Save failed:", error.message);
+        return;
+    }
+
+    console.log("Saved to database");
+}
+
+if (loadFromURL()) {
+    calculate();
+} else {
+    loadInputs();
+}
+
 
