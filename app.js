@@ -11,6 +11,14 @@ const leaveInput=document.getElementById("leave");
 const calcBtn=document.getElementById("calcBtn");
 const resultDiv=document.getElementById("result");
 
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const signupBtn = document.getElementById("signupBtn");
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const authStatus = document.getElementById("authStatus");
+
+
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
     const weeklyHours = hours + overtime + (commute * 5 / 60);
