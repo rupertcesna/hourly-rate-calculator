@@ -92,7 +92,7 @@ function loadFromURL() {
 
 async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     const { data, error } = await db
-        .from("hourly-rate")
+        .from("calculations")
         .insert({
             salary: salary,
             hours: hours,
