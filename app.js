@@ -19,6 +19,8 @@ const logoutBtn = document.getElementById("logoutBtn");
 const authStatus = document.getElementById("authStatus");
 
 const historySection = document.getElementById("historySection");
+const historyList = document.getElementById("history");
+
 
 
 signupBtn.addEventListener("click", signUp);
@@ -52,8 +54,6 @@ function calculate() {
     updateURL(salary, hours, overtime, commute, leave);
 
     saveToDatabase(salary, hours, overtime, commute, leave, realRate);
-
-    loadHistory();
 
 }
 
@@ -137,15 +137,6 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
 }
 
 
-if (loadFromURL()) {
-    calculate();
-} else {
-    loadInputs();
-}
-
-checkSession();
-
-
 async function signUp() {
     const { data, error } = await db.auth.signUp({
         email: emailInput.value,
@@ -179,22 +170,6 @@ async function logOut() {
     authStatus.textContent = "Logged out";
 }
 
-async function checkSession() {
-    const { data } = await db.auth.getSession();
-
-    if (data.session) {
-        authStatus.textContent = "Logged in as " + data.session.user.email;
-        historySection.style.display = "block";
-        loadHistory();
-    } else {
-        authStatus.textContent = "Not logged in";
-        historySection.style.display = "none";
-    }
-}
-
-
-const historyList = document.getElementById("history");
-
 async function loadHistory() {
     const { data, error } = await db
         .from("calculations")
@@ -215,6 +190,26 @@ async function loadHistory() {
         historyList.appendChild(li);
     });
 }
+
+async function checkSession() {
+    const { data } = await db.auth.getSession();
+
+    if (data.session) {
+        authStatus.textContent = "Logged in as " + data.session.user.email;
+        historySection.style.display = "block";
+        loadHistory();
+    } else {
+        authStatus.textContent = "Not logged in";
+        historySection.style.display = "none";
+    }
+}
+
+if (loadFromURL()) {
+    calculate();
+} else {
+    loadInputs();
+}
+checkSession();
 
 
 
