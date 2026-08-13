@@ -178,5 +178,28 @@ async function checkSession() {
     }
 }
 
+const historyList = document.getElementById("history");
+
+async function loadHistory() {
+    const { data, error } = await db
+        .from("calculations")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(10);
+
+    if (error) {
+        console.log("History failed:", error.message);
+        return;
+    }
+
+    historyList.innerHTML = "";
+
+    data.forEach(function (row) {
+        const li = document.createElement("li");
+        li.textContent = "€" + row.rate.toFixed(2) + " — " + row.salary + "€ / " + row.hours + "h";
+        historyList.appendChild(li);
+    });
+}
+
 
 
