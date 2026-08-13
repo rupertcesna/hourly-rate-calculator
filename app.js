@@ -103,9 +103,13 @@ function loadFromURL() {
 }
 
 async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
-    const { data, error } = await db
+    const { data: sessionData } = await db.auth.getSession();
+    const userId = sessionData.session ? sessionData.session.user.id : null;
+
+    const { error } = await db
         .from("calculations")
         .insert({
+            user_id: userId,
             salary: salary,
             hours: hours,
             overtime: overtime,
@@ -122,11 +126,30 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     console.log("Saved to database");
 }
 
+    if (error) {
+        console.log("Save failed:", error.message);
+        return;
+    }
+
+    console.log("Saved to database");
+}
+
+    if (error) {
+        console.log("Save failed:", error.message);
+        return;
+    }
+
+    console.log("Saved to database");
+}
+
 if (loadFromURL()) {
     calculate();
 } else {
     loadInputs();
 }
+
+checkSession();
+
 
 async function signUp() {
     const { data, error } = await db.auth.signUp({
@@ -159,6 +182,16 @@ async function logIn() {
 async function logOut() {
     await db.auth.signOut();
     authStatus.textContent = "Logged out";
+}
+
+async function checkSession() {
+    const { data } = await db.auth.getSession();
+
+    if (data.session) {
+        authStatus.textContent = "Logged in as " + data.session.user.email;
+    } else {
+        authStatus.textContent = "Not logged in";
+    }
 }
 
 
