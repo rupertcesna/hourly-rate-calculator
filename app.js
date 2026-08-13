@@ -18,6 +18,9 @@ const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const authStatus = document.getElementById("authStatus");
 
+const historySection = document.getElementById("historySection");
+
+
 signupBtn.addEventListener("click", signUp);
 loginBtn.addEventListener("click", logIn);
 logoutBtn.addEventListener("click", logOut);
@@ -105,7 +108,12 @@ function loadFromURL() {
 
 async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     const { data: sessionData } = await db.auth.getSession();
-    const userId = sessionData.session ? sessionData.session.user.id : null;
+
+    if (!sessionData.session) {
+        return;
+    }
+
+    const userId = sessionData.session.user.id;
 
     const { error } = await db
         .from("calculations")
@@ -125,7 +133,9 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     }
 
     console.log("Saved to database");
+    loadHistory();
 }
+
 
 if (loadFromURL()) {
     calculate();
@@ -174,10 +184,14 @@ async function checkSession() {
 
     if (data.session) {
         authStatus.textContent = "Logged in as " + data.session.user.email;
+        historySection.style.display = "block";
+        loadHistory();
     } else {
         authStatus.textContent = "Not logged in";
+        historySection.style.display = "none";
     }
 }
+
 
 const historyList = document.getElementById("history");
 
