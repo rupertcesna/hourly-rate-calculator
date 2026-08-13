@@ -50,6 +50,7 @@ function calculate() {
 
     saveToDatabase(salary, hours, overtime, commute, leave, realRate);
 
+    loadHistory();
 
 }
 
