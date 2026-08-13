@@ -126,22 +126,6 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     console.log("Saved to database");
 }
 
-    if (error) {
-        console.log("Save failed:", error.message);
-        return;
-    }
-
-    console.log("Saved to database");
-}
-
-    if (error) {
-        console.log("Save failed:", error.message);
-        return;
-    }
-
-    console.log("Saved to database");
-}
-
 if (loadFromURL()) {
     calculate();
 } else {
