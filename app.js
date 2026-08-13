@@ -18,6 +18,10 @@ const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const authStatus = document.getElementById("authStatus");
 
+signupBtn.addEventListener("click", signUp);
+loginBtn.addEventListener("click", logIn);
+logoutBtn.addEventListener("click", logOut);
+
 
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
@@ -123,5 +127,39 @@ if (loadFromURL()) {
 } else {
     loadInputs();
 }
+
+async function signUp() {
+    const { data, error } = await db.auth.signUp({
+        email: emailInput.value,
+        password: passwordInput.value
+    });
+
+    if (error) {
+        authStatus.textContent = error.message;
+        return;
+    }
+
+    authStatus.textContent = "Signed up as " + data.user.email;
+}
+
+async function logIn() {
+    const { data, error } = await db.auth.signInWithPassword({
+        email: emailInput.value,
+        password: passwordInput.value
+    });
+
+    if (error) {
+        authStatus.textContent = error.message;
+        return;
+    }
+
+    authStatus.textContent = "Logged in as " + data.user.email;
+}
+
+async function logOut() {
+    await db.auth.signOut();
+    authStatus.textContent = "Logged out";
+}
+
 
 
