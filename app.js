@@ -29,7 +29,6 @@ const comparisonDiv = document.getElementById("comparison");
 
 
 
-
 signupBtn.addEventListener("click", signUp);
 loginBtn.addEventListener("click", logIn);
 logoutBtn.addEventListener("click", logOut);
@@ -43,25 +42,25 @@ function computeRate(salary, hours, overtime, commute, leave) {
 }
 
 function calculate() {
-    const salary = Number(salaryInput.value);
+    const  = Number(Input.value);
     const hours = Number(hoursInput.value);
     const overtime = Number(overtimeInput.value);
     const commute = Number(commuteInput.value);
     const leave = Number(leaveInput.value);
 
-    if (salary <= 0 || hours <= 0) {
-        resultDiv.textContent = "Enter your salary and weekly hours.";
+    if ( <= 0 || hours <= 0) {
+        resultDiv.textContent = "Enter your  and weekly hours.";
         breakdownDiv.textContent = "";
         comparisonDiv.textContent = "";
         return;
     }
 
-    const realRate = computeRate(salary, hours, overtime, commute, leave);
+    const realRate = computeRate(, hours, overtime, commute, leave);
 
     const workingWeeks = 52 - (leave / 5);
     const weeklyHours = hours + overtime + (commute * 5 / 60);
     const totalHours = weeklyHours * workingWeeks;
-    const assumedRate = salary / (hours * 52);
+    const assumedRate =  / (hours * 52);
     const difference = ((assumedRate - realRate) / assumedRate) * 100;
 
     resultDiv.textContent = "€" + realRate.toFixed(2) + " per hour";
@@ -70,7 +69,7 @@ function calculate() {
         weeklyHours.toFixed(1) + " real hours per week × " +
         workingWeeks + " working weeks = " +
         Math.round(totalHours) + " hours. " +
-        "€" + salary + " ÷ " + Math.round(totalHours) + " hours.";
+        "€" + salary.toLocaleString() + " ÷ " + Math.round(totalHours) + " hours.";
 
     comparisonDiv.textContent =
         "You probably thought it was €" + assumedRate.toFixed(2) +
