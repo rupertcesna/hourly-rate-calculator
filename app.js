@@ -81,39 +81,6 @@ function calculate() {
     saveToDatabase(salary, hours, overtime, commute, leave, realRate);
 }
 
-    const realRate = computeRate(salary, hours, overtime, commute, leave);
-
-    const workingWeeks = 52 - (leave / 5);
-    const weeklyHours = hours + overtime + (commute * 5 / 60);
-    const totalHours = weeklyHours * workingWeeks;
-    const assumedRate = salary / (hours * 52);
-    const difference = ((assumedRate - realRate) / assumedRate) * 100;
-
-    resultDiv.textContent = "€" + realRate.toFixed(2) + " per hour";
-
-    breakdownDiv.textContent =
-        weeklyHours.toFixed(1) + " real hours per week × " +
-        workingWeeks + " working weeks = " +
-        Math.round(totalHours) + " hours. " +
-        "€" + salary + " ÷ " + Math.round(totalHours) + " hours.";
-
-    comparisonDiv.textContent =
-        "You probably thought it was €" + assumedRate.toFixed(2) +
-        ". That's " + difference.toFixed(0) + "% higher than reality.";
-
-    saveInputs();
-    updateURL(salary, hours, overtime, commute, leave);
-    saveToDatabase(salary, hours, overtime, commute, leave, realRate);
-}
-
-
-    saveInputs();
-    updateURL(salary, hours, overtime, commute, leave);
-
-    saveToDatabase(salary, hours, overtime, commute, leave, realRate);
-
-}
-
 calcBtn.addEventListener("click", calculate); 
 
 function saveInputs() {
