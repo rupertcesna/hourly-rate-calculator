@@ -66,6 +66,10 @@ function calculate() {
     if (salary <= 0 || hours <= 0) {
         resultDiv.textContent = "Enter your salary and weekly hours.";
         return;
+
+                breakdownDiv.textContent = "";
+        comparisonDiv.textContent = "";
+
     }
 
     const realRate = computeRate(salary, hours, overtime, commute, leave);
