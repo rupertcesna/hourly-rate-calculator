@@ -46,4 +46,15 @@ body {
         text-align: center;
     }
 
+    #upgrade a {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #635bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+
 }
