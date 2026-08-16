@@ -5,71 +5,68 @@ body {
     padding: 0 20px;
     color: #1a1a1a;
     line-height: 1.6;
+}
 
-    label {
-        display: block;
-        margin-top: 16px;
-        font-size: 14px;
-        font-weight: 500;
-    }
+label {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
 
-    input {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        box-sizing: border-box;
-    }
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
 
-    button {
-        width: 100%;
-        margin-top: 24px;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #fff;
-        background: #1a1a1a;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-    }
+button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    button:hover {
-        background: #333;
-    }
+button:hover {
+    background: #333;
+}
 
-    #result {
-  font-size: 42px;
-  font-weight: 700;
-  margin-top: 32px;
-  letter-spacing: -1px;
+#result {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 32px;
+    letter-spacing: -1px;
 }
 
 #breakdown {
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
 }
 
 #comparison {
-  font-size: 18px;
-  margin-top: 16px;
-  padding: 16px;
-  background: #fff4e5;
-  border-radius: 8px;
+    font-size: 18px;
+    margin-top: 16px;
+    padding: 16px;
+    background: #fff4e5;
+    border-radius: 8px;
 }
 
-
-    #upgrade a {
-  display: inline-block;
-  padding: 12px 20px;
-  background: #635bff;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-
+#upgrade a {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #635bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
 }
