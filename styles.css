@@ -40,11 +40,26 @@ body {
     }
 
     #result {
-        margin-top: 24px;
-        font-size: 20px;
-        font-weight: 600;
-        text-align: center;
-    }
+  font-size: 42px;
+  font-weight: 700;
+  margin-top: 32px;
+  letter-spacing: -1px;
+}
+
+#breakdown {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+#comparison {
+  font-size: 18px;
+  margin-top: 16px;
+  padding: 16px;
+  background: #fff4e5;
+  border-radius: 8px;
+}
+
 
     #upgrade a {
   display: inline-block;
