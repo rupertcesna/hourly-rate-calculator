@@ -23,6 +23,9 @@ const waitlist = document.getElementById("waitlist");
 const waitlistEmail = document.getElementById("waitlistEmail");
 const waitlistBtn = document.getElementById("waitlistBtn");
 const waitlistStatus = document.getElementById("waitlistStatus");
+const breakdownDiv = document.getElementById("breakdown");
+const comparisonDiv = document.getElementById("comparison");
+
 
 
 
@@ -52,7 +55,44 @@ function calculate() {
     }
 
     const realRate = computeRate(salary, hours, overtime, commute, leave);
-    resultDiv.textContent = "Your real hourly rate: €" + realRate.toFixed(2);
+
+    function calculate() {
+    const salary = Number(salaryInput.value);
+    const hours = Number(hoursInput.value);
+    const overtime = Number(overtimeInput.value);
+    const commute = Number(commuteInput.value);
+    const leave = Number(leaveInput.value);
+
+    if (salary <= 0 || hours <= 0) {
+        resultDiv.textContent = "Enter your salary and weekly hours.";
+        return;
+    }
+
+    const realRate = computeRate(salary, hours, overtime, commute, leave);
+
+    const workingWeeks = 52 - (leave / 5);
+    const weeklyHours = hours + overtime + (commute * 5 / 60);
+    const totalHours = weeklyHours * workingWeeks;
+    const assumedRate = salary / (hours * 52);
+    const difference = ((assumedRate - realRate) / assumedRate) * 100;
+
+    resultDiv.textContent = "€" + realRate.toFixed(2) + " per hour";
+
+    breakdownDiv.textContent =
+        weeklyHours.toFixed(1) + " real hours per week × " +
+        workingWeeks + " working weeks = " +
+        Math.round(totalHours) + " hours. " +
+        "€" + salary + " ÷ " + Math.round(totalHours) + " hours.";
+
+    comparisonDiv.textContent =
+        "You probably thought it was €" + assumedRate.toFixed(2) +
+        ". That's " + difference.toFixed(0) + "% higher than reality.";
+
+    saveInputs();
+    updateURL(salary, hours, overtime, commute, leave);
+    saveToDatabase(salary, hours, overtime, commute, leave, realRate);
+}
+
 
     saveInputs();
     updateURL(salary, hours, overtime, commute, leave);
