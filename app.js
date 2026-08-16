@@ -10,16 +10,20 @@ const commuteInput=document.getElementById("commute");
 const leaveInput=document.getElementById("leave");
 const calcBtn=document.getElementById("calcBtn");
 const resultDiv=document.getElementById("result");
-
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const signupBtn = document.getElementById("signupBtn");
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const authStatus = document.getElementById("authStatus");
-
 const historySection = document.getElementById("historySection");
 const historyList = document.getElementById("history");
+const upgradeBtn = document.getElementById("upgradeBtn");
+const waitlist = document.getElementById("waitlist");
+const waitlistEmail = document.getElementById("waitlistEmail");
+const waitlistBtn = document.getElementById("waitlistBtn");
+const waitlistStatus = document.getElementById("waitlistStatus");
+
 
 
 
@@ -203,6 +207,37 @@ async function checkSession() {
         historySection.style.display = "none";
     }
 }
+
+function showWaitlist() {
+    waitlist.style.display = "block";
+    upgradeBtn.style.display = "none";
+}
+
+async function joinWaitlist() {
+    const email = waitlistEmail.value.trim();
+
+    if (!email.includes("@")) {
+        waitlistStatus.textContent = "Enter a valid email.";
+        return;
+    }
+
+    const { error } = await db
+        .from("waitlist")
+        .insert({ email: email, source: "pro-upgrade" });
+
+    if (error) {
+        waitlistStatus.textContent = "Something went wrong.";
+        console.log(error.message);
+        return;
+    }
+
+    waitlistStatus.textContent = "Thanks — you'll hear from me.";
+    waitlistEmail.value = "";
+}
+
+upgradeBtn.addEventListener("click", showWaitlist);
+waitlistBtn.addEventListener("click", joinWaitlist);
+
 
 if (loadFromURL()) {
     calculate();
