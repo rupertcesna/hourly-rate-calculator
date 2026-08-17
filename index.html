@@ -11,6 +11,7 @@
 <body>
        <div id="screenCalculator">
       <h1>Real Hourly Rate Calculator</h1>
+    <p id="greeting" style="display: none;"></p>
       <p class="subhead">Your payslip says one number. Your actual hourly rate — after unpaid overtime, commuting and holidays — is usually 15–40% lower. Find out yours.</p>
 
       <label for="salary">Gross annual salary (€)</label>
@@ -62,10 +63,10 @@
       <button id="logoutBtn" class="link-button" style="display: none;">Log out</button>
     </div>
 
-    <div id="screenAuth" style="display: none;">
+     <div id="screenAuth" style="display: none;">
       <button id="backBtn" class="link-button">← Back</button>
-      <h1>Save your calculations</h1>
-      <p class="subhead">Create an account to keep a history of your rate over time.</p>
+      <h1 id="authTitle">Create your account</h1>
+      <p class="subhead" id="authSubhead">Save your calculations and track your rate over time.</p>
 
       <label for="email">Email</label>
       <input type="email" id="email">
@@ -73,8 +74,8 @@
       <label for="password">Password</label>
       <input type="password" id="password">
 
-      <button id="signupBtn">Create account</button>
-      <button id="loginBtn" class="link-button">Already have an account? Log in</button>
+      <button id="authSubmitBtn">Create account</button>
+      <button id="authToggleBtn" class="link-button">Already have an account? Log in</button>
       <span id="authStatus"></span>
     </div>
 
