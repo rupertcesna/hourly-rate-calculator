@@ -42,14 +42,14 @@ function computeRate(salary, hours, overtime, commute, leave) {
 }
 
 function calculate() {
-    const  = Number(Input.value);
+    const salary = Number(salaryInput.value);
     const hours = Number(hoursInput.value);
     const overtime = Number(overtimeInput.value);
     const commute = Number(commuteInput.value);
     const leave = Number(leaveInput.value);
 
-    if ( <= 0 || hours <= 0) {
-        resultDiv.textContent = "Enter your  and weekly hours.";
+    if (salary <= 0 || hours <= 0) {
+        resultDiv.textContent = "Enter your salary and weekly hours.";
         breakdownDiv.textContent = "";
         comparisonDiv.textContent = "";
         return;
@@ -74,6 +74,8 @@ function calculate() {
     comparisonDiv.textContent =
         "You probably thought it was €" + assumedRate.toFixed(2) +
         ". That's " + difference.toFixed(0) + "% higher than reality.";
+
+    outputDiv.style.display = "block";
 
     saveInputs();
     updateURL(salary, hours, overtime, commute, leave);
