@@ -108,4 +108,11 @@ button:hover {
     color: #1a1a1a;
 }
 
+#savePrompt {
+    font-size: 14px;
+    color: #666;
+    margin-top: 24px;
+}
+
+
 
