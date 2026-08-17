@@ -19,14 +19,19 @@
     <label for="hours">Contracted hours per week</label>
     <input type="number" id="hours">
 
-    <label for="overtime">Unpaid overtime hours per week</label>
-    <input type="number" id="overtime">
+      <button id="toggleOptional" class="link-button">+ Add overtime, commute and holidays</button>
 
-    <label for="commute">Commute minutes per day (round trip)</label>
-    <input type="number" id="commute">
+    <div id="optionalFields" style="display: none;">
+      <label for="overtime">Unpaid overtime hours per week</label>
+      <input type="number" id="overtime" value="0">
 
-    <label for="leave">Paid leave days per year</label>
-    <input type="number" id="leave">
+      <label for="commute">Commute minutes per day (round trip)</label>
+      <input type="number" id="commute" value="0">
+
+      <label for="leave">Paid leave days per year</label>
+      <input type="number" id="leave" value="20">
+    </div>
+
 
     <button id="calcBtn">Calculate</button>
 
