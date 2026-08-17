@@ -91,3 +91,21 @@ button:hover {
     margin-bottom: 32px;
 }
 
+.link-button {
+    width: auto;
+    margin-top: 16px;
+    padding: 0;
+    background: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    border: none;
+}
+
+.link-button:hover {
+    background: none;
+    color: #1a1a1a;
+}
+
+
