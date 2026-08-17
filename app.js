@@ -36,9 +36,6 @@ const backBtn = document.getElementById("backBtn");
 const copyBtn = document.getElementById("copyBtn");
 const upgradeSection = document.getElementById("upgrade");
 
-
-
-
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
     const weeklyHours = hours + overtime + (commute * 5 / 60);
@@ -142,6 +139,20 @@ function loadFromURL() {
     return true;
 }
 
+function showScreen(name) {
+    screenCalculator.style.display = name === "calculator" ? "block" : "none";
+    screenAuth.style.display = name === "auth" ? "block" : "none";
+    window.scrollTo(0, 0);
+}
+
+async function copyLink() {
+    await navigator.clipboard.writeText(window.location.href);
+    copyBtn.textContent = "Copied";
+    setTimeout(function () {
+        copyBtn.textContent = "Copy link to this result";
+    }, 2000);
+}
+
 async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     const { data: sessionData } = await db.auth.getSession();
 
@@ -173,26 +184,7 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
 }
 
 async function signUp() {
-    const { data, error } = await db.auth.signUp({
-        email: emailInput.value,
-        password: passwordInput.value
-    });
-
-    if (error) {
-        authStatus.textContent = error.message;
-        return;
-
-    showScreen("calculator");
-    checkSession();
-}
-
-    }
-
-    authStatus.textContent = "Signed up as " + data.user.email;
-}
-
-async function logIn() {
-    const { data, error } = await db.auth.signInWithPassword({
+    const { error } = await db.auth.signUp({
         email: emailInput.value,
         password: passwordInput.value
     });
@@ -207,17 +199,25 @@ async function logIn() {
     checkSession();
 }
 
+async function logIn() {
+    const { error } = await db.auth.signInWithPassword({
+        email: emailInput.value,
+        password: passwordInput.value
+    });
 
+    if (error) {
+        authStatus.textContent = error.message;
+        return;
     }
 
-    authStatus.textContent = "Logged in as " + data.user.email;
+    authStatus.textContent = "";
+    showScreen("calculator");
+    checkSession();
 }
 
 async function logOut() {
     await db.auth.signOut();
-    authStatus.textContent = "Logged out";
     historyList.innerHTML = "";
-    historySection.style.display = "none";
     checkSession();
 }
 
@@ -259,16 +259,9 @@ async function checkSession() {
     }
 }
 
-
 function showWaitlist() {
     waitlist.style.display = "block";
     upgradeBtn.style.display = "none";
-}
-
-function showScreen(name) {
-    screenCalculator.style.display = name === "calculator" ? "block" : "none";
-    screenAuth.style.display = name === "auth" ? "block" : "none";
-    window.scrollTo(0, 0);
 }
 
 async function joinWaitlist() {
@@ -288,14 +281,6 @@ async function joinWaitlist() {
         console.log(error.message);
         return;
     }
-
-    async function copyLink() {
-    await navigator.clipboard.writeText(window.location.href);
-    copyBtn.textContent = "Copied";
-    setTimeout(function () {
-        copyBtn.textContent = "Copy link to this result";
-    }, 2000);
-}
 
     waitlistStatus.textContent = "Thanks — you'll hear from me.";
     waitlistEmail.value = "";
