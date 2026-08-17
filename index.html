@@ -9,62 +9,72 @@
 </head>
     
 <body>
-    <h1>Real Hourly Rate Calculator</h1>
-        <p class="subhead">Your payslip says one number. Your actual hourly rate — after unpaid overtime, commuting and holidays — is usually 15–40% lower. Find out yours.</p>
+       <div id="screenCalculator">
+      <h1>Real Hourly Rate Calculator</h1>
+      <p class="subhead">Your payslip says one number. Your actual hourly rate — after unpaid overtime, commuting and holidays — is usually 15–40% lower. Find out yours.</p>
 
+      <label for="salary">Gross annual salary (€)</label>
+      <input type="number" id="salary">
 
-    <label for="salary">Gross annual salary (€)</label>
-    <input type="number" id="salary">
-
-    <label for="hours">Contracted hours per week</label>
-    <input type="number" id="hours">
+      <label for="hours">Contracted hours per week</label>
+      <input type="number" id="hours">
 
       <button id="toggleOptional" class="link-button">+ Add overtime, commute and holidays</button>
 
-    <div id="optionalFields" style="display: none;">
-      <label for="overtime">Unpaid overtime hours per week</label>
-      <input type="number" id="overtime" value="0">
+      <div id="optionalFields" style="display: none;">
+        <label for="overtime">Unpaid overtime hours per week</label>
+        <input type="number" id="overtime" value="0">
 
-      <label for="commute">Commute minutes per day (round trip)</label>
-      <input type="number" id="commute" value="0">
+        <label for="commute">Commute minutes per day (round trip)</label>
+        <input type="number" id="commute" value="0">
 
-      <label for="leave">Paid leave days per year</label>
-      <input type="number" id="leave" value="20">
-    </div>
-
-
-    <button id="calcBtn">Calculate</button>
-
-    <div id="output" style="display: none;">
-      <div id="result"></div>
-      <div id="breakdown"></div>
-      <div id="comparison"></div>
-      <p id="savePrompt">Want to keep track of this? <a href="#auth">Create an account</a> to save your calculations.</p>
-    </div>
-
-    <div id="upgrade">
-      <p>Save unlimited calculations and track your rate over time.</p>
-      <button id="upgradeBtn">Upgrade to Pro — €5/month</button>
-
-      <div id="waitlist" style="display: none;">
-        <p>Not available yet. Leave your email and I'll tell you when it is.</p>
-        <input type="email" id="waitlistEmail" placeholder="your@email.com">
-        <button id="waitlistBtn">Notify me</button>
-        <span id="waitlistStatus"></span>
+        <label for="leave">Paid leave days per year</label>
+        <input type="number" id="leave" value="20">
       </div>
+
+      <button id="calcBtn">Calculate</button>
+
+      <div id="output" style="display: none;">
+        <div id="result"></div>
+        <div id="breakdown"></div>
+        <div id="comparison"></div>
+        <button id="copyBtn" class="link-button">Copy link to this result</button>
+        <p id="savePrompt">Want to keep track of this? <button id="goToAuth" class="link-button">Create an account</button></p>
+      </div>
+
+      <div id="historySection">
+        <h2>Your history</h2>
+        <ul id="history"></ul>
+      </div>
+
+      <div id="upgrade" style="display: none;">
+        <p>Save unlimited calculations and track your rate over time.</p>
+        <button id="upgradeBtn">Upgrade to Pro — €5/month</button>
+
+        <div id="waitlist" style="display: none;">
+          <p>Not available yet. Leave your email and I'll tell you when it is.</p>
+          <input type="email" id="waitlistEmail" placeholder="your@email.com">
+          <button id="waitlistBtn">Notify me</button>
+          <span id="waitlistStatus"></span>
+        </div>
+      </div>
+
+      <button id="logoutBtn" class="link-button" style="display: none;">Log out</button>
     </div>
 
-    <div id="historySection">
-      <h2>Your history</h2>
-      <ul id="history"></ul>
-    </div>
+    <div id="screenAuth" style="display: none;">
+      <button id="backBtn" class="link-button">← Back</button>
+      <h1>Save your calculations</h1>
+      <p class="subhead">Create an account to keep a history of your rate over time.</p>
 
-    <div id="auth">
-      <input type="email" id="email" placeholder="email">
-      <input type="password" id="password" placeholder="password">
-      <button id="signupBtn">Sign up</button>
-      <button id="loginBtn">Log in</button>
-      <button id="logoutBtn">Log out</button>
+      <label for="email">Email</label>
+      <input type="email" id="email">
+
+      <label for="password">Password</label>
+      <input type="password" id="password">
+
+      <button id="signupBtn">Create account</button>
+      <button id="loginBtn" class="link-button">Already have an account? Log in</button>
       <span id="authStatus"></span>
     </div>
 
