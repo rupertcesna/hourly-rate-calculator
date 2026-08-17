@@ -84,3 +84,10 @@ button:hover {
     border-radius: 6px;
     font-weight: 600;
 }
+
+.subhead {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 32px;
+}
+
