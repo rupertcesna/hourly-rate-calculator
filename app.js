@@ -3,13 +3,13 @@ const SUPABASE_KEY = "sb_publishable_Tt0orymTSDgsKAqU6ykZ2g_l3QDYdZq";
 
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const salaryInput=document.getElementById("salary");
-const hoursInput=document.getElementById("hours");
-const overtimeInput=document.getElementById("overtime");
-const commuteInput=document.getElementById("commute");
-const leaveInput=document.getElementById("leave");
-const calcBtn=document.getElementById("calcBtn");
-const resultDiv=document.getElementById("result");
+const salaryInput = document.getElementById("salary");
+const hoursInput = document.getElementById("hours");
+const overtimeInput = document.getElementById("overtime");
+const commuteInput = document.getElementById("commute");
+const leaveInput = document.getElementById("leave");
+const calcBtn = document.getElementById("calcBtn");
+const resultDiv = document.getElementById("result");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const signupBtn = document.getElementById("signupBtn");
@@ -25,14 +25,7 @@ const waitlistBtn = document.getElementById("waitlistBtn");
 const waitlistStatus = document.getElementById("waitlistStatus");
 const breakdownDiv = document.getElementById("breakdown");
 const comparisonDiv = document.getElementById("comparison");
-
-
-
-
-signupBtn.addEventListener("click", signUp);
-loginBtn.addEventListener("click", logIn);
-logoutBtn.addEventListener("click", logOut);
-
+const outputDiv = document.getElementById("output");
 
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
@@ -52,15 +45,16 @@ function calculate() {
         resultDiv.textContent = "Enter your salary and weekly hours.";
         breakdownDiv.textContent = "";
         comparisonDiv.textContent = "";
+        outputDiv.style.display = "block";
         return;
     }
 
-    const realRate = computeRate(, hours, overtime, commute, leave);
+    const realRate = computeRate(salary, hours, overtime, commute, leave);
 
     const workingWeeks = 52 - (leave / 5);
     const weeklyHours = hours + overtime + (commute * 5 / 60);
     const totalHours = weeklyHours * workingWeeks;
-    const assumedRate =  / (hours * 52);
+    const assumedRate = salary / (hours * 52);
     const difference = ((assumedRate - realRate) / assumedRate) * 100;
 
     resultDiv.textContent = "€" + realRate.toFixed(2) + " per hour";
@@ -68,8 +62,8 @@ function calculate() {
     breakdownDiv.textContent =
         weeklyHours.toFixed(1) + " real hours per week × " +
         workingWeeks + " working weeks = " +
-        Math.round(totalHours) + " hours. " +
-        "€" + salary.toLocaleString() + " ÷ " + Math.round(totalHours) + " hours.";
+        Math.round(totalHours).toLocaleString() + " hours. " +
+        "€" + salary.toLocaleString() + " ÷ " + Math.round(totalHours).toLocaleString() + " hours.";
 
     comparisonDiv.textContent =
         "You probably thought it was €" + assumedRate.toFixed(2) +
@@ -81,8 +75,6 @@ function calculate() {
     updateURL(salary, hours, overtime, commute, leave);
     saveToDatabase(salary, hours, overtime, commute, leave, realRate);
 }
-
-calcBtn.addEventListener("click", calculate); 
 
 function saveInputs() {
     const data = {
@@ -106,7 +98,6 @@ function loadInputs() {
     commuteInput.value = data.commute;
     leaveInput.value = data.leave;
 }
-
 
 function updateURL(salary, hours, overtime, commute, leave) {
     const params = new URLSearchParams({
@@ -161,7 +152,6 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     loadHistory();
 }
 
-
 async function signUp() {
     const { data, error } = await db.auth.signUp({
         email: emailInput.value,
@@ -193,6 +183,8 @@ async function logIn() {
 async function logOut() {
     await db.auth.signOut();
     authStatus.textContent = "Logged out";
+    historyList.innerHTML = "";
+    historySection.style.display = "none";
 }
 
 async function loadHistory() {
@@ -256,9 +248,12 @@ async function joinWaitlist() {
     waitlistEmail.value = "";
 }
 
+calcBtn.addEventListener("click", calculate);
+signupBtn.addEventListener("click", signUp);
+loginBtn.addEventListener("click", logIn);
+logoutBtn.addEventListener("click", logOut);
 upgradeBtn.addEventListener("click", showWaitlist);
 waitlistBtn.addEventListener("click", joinWaitlist);
-
 
 if (loadFromURL()) {
     calculate();
@@ -266,6 +261,3 @@ if (loadFromURL()) {
     loadInputs();
 }
 checkSession();
-
-
-
