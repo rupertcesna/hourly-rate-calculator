@@ -29,6 +29,13 @@ const breakdownDiv = document.getElementById("breakdown");
 const comparisonDiv = document.getElementById("comparison");
 const outputDiv = document.getElementById("output");
 const savePrompt = document.getElementById("savePrompt");
+const screenCalculator = document.getElementById("screenCalculator");
+const screenAuth = document.getElementById("screenAuth");
+const goToAuth = document.getElementById("goToAuth");
+const backBtn = document.getElementById("backBtn");
+const copyBtn = document.getElementById("copyBtn");
+const upgradeSection = document.getElementById("upgrade");
+
 
 
 
@@ -241,6 +248,12 @@ function showWaitlist() {
     upgradeBtn.style.display = "none";
 }
 
+function showScreen(name) {
+    screenCalculator.style.display = name === "calculator" ? "block" : "none";
+    screenAuth.style.display = name === "auth" ? "block" : "none";
+    window.scrollTo(0, 0);
+}
+
 async function joinWaitlist() {
     const email = waitlistEmail.value.trim();
 
@@ -259,6 +272,14 @@ async function joinWaitlist() {
         return;
     }
 
+    async function copyLink() {
+    await navigator.clipboard.writeText(window.location.href);
+    copyBtn.textContent = "Copied";
+    setTimeout(function () {
+        copyBtn.textContent = "Copy link to this result";
+    }, 2000);
+}
+
     waitlistStatus.textContent = "Thanks — you'll hear from me.";
     waitlistEmail.value = "";
 }
@@ -270,6 +291,9 @@ logoutBtn.addEventListener("click", logOut);
 upgradeBtn.addEventListener("click", showWaitlist);
 waitlistBtn.addEventListener("click", joinWaitlist);
 toggleOptional.addEventListener("click", toggleOptionalFields);
+goToAuth.addEventListener("click", function () { showScreen("auth"); });
+backBtn.addEventListener("click", function () { showScreen("calculator"); });
+copyBtn.addEventListener("click", copyLink);
 
 if (loadFromURL()) {
     calculate();
