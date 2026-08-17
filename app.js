@@ -3,6 +3,8 @@ const SUPABASE_KEY = "sb_publishable_Tt0orymTSDgsKAqU6ykZ2g_l3QDYdZq";
 
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+const toggleOptional = document.getElementById("toggleOptional");
+const optionalFields = document.getElementById("optionalFields");
 const salaryInput = document.getElementById("salary");
 const hoursInput = document.getElementById("hours");
 const overtimeInput = document.getElementById("overtime");
