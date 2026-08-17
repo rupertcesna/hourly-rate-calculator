@@ -14,8 +14,6 @@ const calcBtn = document.getElementById("calcBtn");
 const resultDiv = document.getElementById("result");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-const signupBtn = document.getElementById("signupBtn");
-const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const authStatus = document.getElementById("authStatus");
 const historySection = document.getElementById("historySection");
@@ -35,6 +33,13 @@ const goToAuth = document.getElementById("goToAuth");
 const backBtn = document.getElementById("backBtn");
 const copyBtn = document.getElementById("copyBtn");
 const upgradeSection = document.getElementById("upgrade");
+const authSubmitBtn = document.getElementById("authSubmitBtn");
+const authToggleBtn = document.getElementById("authToggleBtn");
+const authTitle = document.getElementById("authTitle");
+const authSubhead = document.getElementById("authSubhead");
+const greeting = document.getElementById("greeting");
+let authMode = "signup";
+
 
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
@@ -183,27 +188,36 @@ async function saveToDatabase(salary, hours, overtime, commute, leave, rate) {
     loadHistory();
 }
 
-async function signUp() {
-    const { error } = await db.auth.signUp({
-        email: emailInput.value,
-        password: passwordInput.value
-    });
-
-    if (error) {
-        authStatus.textContent = error.message;
-        return;
-    }
-
+function setAuthMode(mode) {
+    authMode = mode;
     authStatus.textContent = "";
-    showScreen("calculator");
-    checkSession();
+
+    if (mode === "signup") {
+        authTitle.textContent = "Create your account";
+        authSubhead.textContent = "Save your calculations and track your rate over time.";
+        authSubmitBtn.textContent = "Create account";
+        authToggleBtn.textContent = "Already have an account? Log in";
+    } else {
+        authTitle.textContent = "Welcome back";
+        authSubhead.textContent = "Log in to see your saved calculations.";
+        authSubmitBtn.textContent = "Log in";
+        authToggleBtn.textContent = "Need an account? Sign up";
+    }
 }
 
-async function logIn() {
-    const { error } = await db.auth.signInWithPassword({
+function toggleAuthMode() {
+    setAuthMode(authMode === "signup" ? "login" : "signup");
+}
+
+async function submitAuth() {
+    const credentials = {
         email: emailInput.value,
         password: passwordInput.value
-    });
+    };
+
+    const { error } = authMode === "signup"
+        ? await db.auth.signUp(credentials)
+        : await db.auth.signInWithPassword(credentials);
 
     if (error) {
         authStatus.textContent = error.message;
@@ -246,18 +260,22 @@ async function checkSession() {
     const { data } = await db.auth.getSession();
 
     if (data.session) {
+        greeting.textContent = "Hello, " + data.session.user.email;
+        greeting.style.display = "block";
         historySection.style.display = "block";
         upgradeSection.style.display = "block";
         savePrompt.style.display = "none";
         logoutBtn.style.display = "block";
         loadHistory();
     } else {
+        greeting.style.display = "none";
         historySection.style.display = "none";
         upgradeSection.style.display = "none";
         savePrompt.style.display = "block";
         logoutBtn.style.display = "none";
     }
 }
+
 
 function showWaitlist() {
     waitlist.style.display = "block";
@@ -287,8 +305,8 @@ async function joinWaitlist() {
 }
 
 calcBtn.addEventListener("click", calculate);
-signupBtn.addEventListener("click", signUp);
-loginBtn.addEventListener("click", logIn);
+authSubmitBtn.addEventListener("click", submitAuth);
+authToggleBtn.addEventListener("click", toggleAuthMode);
 logoutBtn.addEventListener("click", logOut);
 upgradeBtn.addEventListener("click", showWaitlist);
 waitlistBtn.addEventListener("click", joinWaitlist);
