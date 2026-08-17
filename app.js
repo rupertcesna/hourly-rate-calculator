@@ -28,6 +28,9 @@ const waitlistStatus = document.getElementById("waitlistStatus");
 const breakdownDiv = document.getElementById("breakdown");
 const comparisonDiv = document.getElementById("comparison");
 const outputDiv = document.getElementById("output");
+const savePrompt = document.getElementById("savePrompt");
+
+
 
 function computeRate(salary, hours, overtime, commute, leave) {
     const workingWeeks = 52 - (leave / 5);
@@ -224,10 +227,12 @@ async function checkSession() {
     if (data.session) {
         authStatus.textContent = "Logged in as " + data.session.user.email;
         historySection.style.display = "block";
+        savePrompt.style.display = "none";
         loadHistory();
     } else {
         authStatus.textContent = "Not logged in";
         historySection.style.display = "none";
+        savePrompt.style.display = "block";
     }
 }
 
