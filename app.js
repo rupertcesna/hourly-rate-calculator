@@ -78,6 +78,14 @@ function calculate() {
     saveToDatabase(salary, hours, overtime, commute, leave, realRate);
 }
 
+function toggleOptionalFields() {
+    const isHidden = optionalFields.style.display === "none";
+    optionalFields.style.display = isHidden ? "block" : "none";
+    toggleOptional.textContent = isHidden
+        ? "− Hide overtime, commute and holidays"
+        : "+ Add overtime, commute and holidays";
+}
+
 function saveInputs() {
     const data = {
         salary: salaryInput.value,
@@ -256,6 +264,7 @@ loginBtn.addEventListener("click", logIn);
 logoutBtn.addEventListener("click", logOut);
 upgradeBtn.addEventListener("click", showWaitlist);
 waitlistBtn.addEventListener("click", joinWaitlist);
+toggleOptional.addEventListener("click", toggleOptionalFields);
 
 if (loadFromURL()) {
     calculate();
