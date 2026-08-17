@@ -2,89 +2,94 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
-    <title>Real Hourly Rate Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Real Hourly Rate Calculator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-    
+
 <body>
-       <div id="screenCalculator">
-      <h1>Real Hourly Rate Calculator</h1>
+  <div id="screenCalculator">
+    <h1>Real Hourly Rate Calculator</h1>
     <p id="greeting" style="display: none;"></p>
-      <p class="subhead">Your payslip says one number. Your actual hourly rate — after unpaid overtime, commuting and holidays — is usually 15–40% lower. Find out yours.</p>
+    <p class="subhead">Your payslip says one number. Your actual hourly rate — after unpaid overtime, commuting and
+      holidays — is usually 15–40% lower. Find out yours.</p>
 
-      <label for="salary">Gross annual salary (€)</label>
-      <input type="number" id="salary">
+    <label for="salary">Gross annual salary (€)</label>
+    <input type="number" id="salary">
 
-      <label for="hours">Contracted hours per week</label>
-      <input type="number" id="hours">
+    <label for="hours">Contracted hours per week</label>
+    <input type="number" id="hours">
 
-      <button id="toggleOptional" class="link-button">+ Add overtime, commute and holidays</button>
+    <button id="toggleOptional" class="link-button">+ Add overtime, commute and holidays</button>
 
-      <div id="optionalFields" style="display: none;">
-        <label for="overtime">Unpaid overtime hours per week</label>
-        <input type="number" id="overtime" value="0">
+    <div id="optionalFields" style="display: none;">
+      <label for="overtime">Unpaid overtime hours per week</label>
+      <input type="number" id="overtime" value="0">
 
-        <label for="commute">Commute minutes per day (round trip)</label>
-        <input type="number" id="commute" value="0">
+      <label for="commute">Commute minutes per day (round trip)</label>
+      <input type="number" id="commute" value="0">
 
-        <label for="leave">Paid leave days per year</label>
-        <input type="number" id="leave" value="20">
-      </div>
-
-      <button id="calcBtn">Calculate</button>
-
-      <div id="output" style="display: none;">
-        <div id="result"></div>
-        <div id="breakdown"></div>
-        <div id="comparison"></div>
-        <button id="copyBtn" class="link-button">Copy link to this result</button>
-        <p id="savePrompt">Want to keep track of this? <button id="goToAuth" class="link-button">Create an account</button></p>
-      </div>
-
-      <div id="historySection">
-        <h2>Your history</h2>
-        <ul id="history"></ul>
-      </div>
-
-      <div id="upgrade" style="display: none;">
-        <p>Save unlimited calculations and track your rate over time.</p>
-        <button id="upgradeBtn">Upgrade to Pro — €5/month</button>
-
-        <div id="waitlist" style="display: none;">
-          <p>Not available yet. Leave your email and I'll tell you when it is.</p>
-          <input type="email" id="waitlistEmail" placeholder="your@email.com">
-          <button id="waitlistBtn">Notify me</button>
-          <span id="waitlistStatus"></span>
-        </div>
-      </div>
-
-      <button id="logoutBtn" class="link-button" style="display: none;">Log out</button>
+      <label for="leave">Paid leave days per year</label>
+      <input type="number" id="leave" value="20">
     </div>
 
-     <div id="screenAuth" style="display: none;">
-      <button id="backBtn" class="link-button">← Back</button>
-      <h1 id="authTitle">Create your account</h1>
-      <p class="subhead" id="authSubhead">Save your calculations and track your rate over time.</p>
+    <button id="calcBtn">Calculate</button>
 
-      <label for="email">Email</label>
-      <input type="email" id="email">
-
-      <label for="password">Password</label>
-      <input type="password" id="password">
-
-      <button id="authSubmitBtn">Create account</button>
-      <button id="authToggleBtn" class="link-button">Already have an account? Log in</button>
-      <span id="authStatus"></span>
+    <div id="output" style="display: none;">
+      <div id="result"></div>
+      <div id="breakdown"></div>
+      <div id="comparison"></div>
+      <button id="copyBtn" class="link-button">Copy link to this result</button>
+      <p id="savePrompt">Want to keep track of this? <button id="goToAuth" class="link-button">Create an
+          account</button></p>
     </div>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+    <div id="historySection">
+      <h2>Your history</h2>
+      <ul id="history"></ul>
+    </div>
 
-    <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "46d1070fc798425a98982aad0682aa06"}'></script><!-- End Cloudflare Web Analytics -->
+    <div id="upgrade" style="display: none;">
+      <p>Save unlimited calculations and track your rate over time.</p>
+      <button id="upgradeBtn">Upgrade to Pro — €5/month</button>
+
+      <div id="waitlist" style="display: none;">
+        <p>Not available yet. Leave your email and I'll tell you when it is.</p>
+        <input type="email" id="waitlistEmail" placeholder="your@email.com">
+        <button id="waitlistBtn">Notify me</button>
+        <span id="waitlistStatus"></span>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="link-button" style="display: none;">Log out</button>
+  </div>
+
+  <div id="screenAuth" style="display: none;">
+    <button id="backBtn" class="link-button">← Back</button>
+    <h1 id="authTitle">Create your account</h1>
+    <p class="subhead" id="authSubhead">Save your calculations and track your rate over time.</p>
+
+    <label for="email">Email</label>
+    <input type="email" id="email">
+
+    <label for="password">Password</label>
+    <input type="password" id="password">
+
+    <button id="authSubmitBtn">Create account</button>
+    <button id="authToggleBtn" class="link-button">Already have an account? Log in</button>
+    <span id="authStatus"></span>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+
+  <!-- Cloudflare Web Analytics -->
+  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'
+    data-cf-beacon='{"token": "46d1070fc798425a98982aad0682aa06"}'></script><!-- End Cloudflare Web Analytics -->
 
 
 </body>
-    </html>
+
+</html>
