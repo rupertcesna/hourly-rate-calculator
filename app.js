@@ -181,6 +181,11 @@ async function signUp() {
     if (error) {
         authStatus.textContent = error.message;
         return;
+
+    showScreen("calculator");
+    checkSession();
+}
+
     }
 
     authStatus.textContent = "Signed up as " + data.user.email;
@@ -197,6 +202,14 @@ async function logIn() {
         return;
     }
 
+    authStatus.textContent = "";
+    showScreen("calculator");
+    checkSession();
+}
+
+
+    }
+
     authStatus.textContent = "Logged in as " + data.user.email;
 }
 
@@ -205,6 +218,7 @@ async function logOut() {
     authStatus.textContent = "Logged out";
     historyList.innerHTML = "";
     historySection.style.display = "none";
+    checkSession();
 }
 
 async function loadHistory() {
@@ -232,16 +246,19 @@ async function checkSession() {
     const { data } = await db.auth.getSession();
 
     if (data.session) {
-        authStatus.textContent = "Logged in as " + data.session.user.email;
         historySection.style.display = "block";
+        upgradeSection.style.display = "block";
         savePrompt.style.display = "none";
+        logoutBtn.style.display = "block";
         loadHistory();
     } else {
-        authStatus.textContent = "Not logged in";
         historySection.style.display = "none";
+        upgradeSection.style.display = "none";
         savePrompt.style.display = "block";
+        logoutBtn.style.display = "none";
     }
 }
+
 
 function showWaitlist() {
     waitlist.style.display = "block";
